@@ -8,8 +8,8 @@
 </template>
 
 <script>
-import stepContent from "../components/stepContent.vue";
-import sidebar from "../components/sidebar.vue";
+import stepContent from "@/components/stepContent.vue";
+import sidebar from "@/components/sidebar.vue";
 export default {
   name: "HomeView",
   components: {

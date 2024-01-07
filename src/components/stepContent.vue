@@ -1,16 +1,19 @@
 <template>
   <div class="step-container">
     <!-- Steps start -->
-    <firstStep />
-    <!-- <secondStep /> -->
-    <!-- <thirdStep /> -->
-    <!-- <lastStep /> -->
+    <!-- <firstStep v-if="stepStore.firstStep" />
+    <secondStep v-if="stepStore.secondStep" />
+    <thirdStep v-if="stepStore.thirdStep" />
+    <lastStep v-if="stepStore.lastStep" /> -->
+    <lastStep />
     <!-- Steps end -->
   </div>
 </template>
 <script>
+import { useStepStore } from "@/stores/StepStore";
+
 import firstStep from "./steps/firstStep.vue";
-import secondStep from "./steps/secondStep";
+import secondStep from "./steps/secondStep.vue";
 import thirdStep from "./steps/thirdStep.vue";
 import lastStep from "./steps/lastStep.vue";
 export default {
@@ -19,6 +22,12 @@ export default {
     secondStep,
     thirdStep,
     lastStep,
+  },
+  setup() {
+    const stepStore = useStepStore();
+    return {
+      stepStore,
+    };
   },
 };
 </script>
@@ -59,7 +68,7 @@ label {
   cursor: pointer;
 }
 
-.step-container button {
+.navigation-button {
   background-color: #03295a;
   color: white;
   font-size: 14px;

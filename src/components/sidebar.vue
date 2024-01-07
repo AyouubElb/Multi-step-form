@@ -2,28 +2,36 @@
   <div class="sidebar-container">
     <!-- Sidebar start -->
     <div class="sidebar-steps">
-      <button class="step-nb" :class="{ activeStep: firstStep }">1</button>
+      <button class="step-nb" :class="{ activeStep: stepStore.firstStep }">
+        1
+      </button>
       <div class="sidebar-steps-text">
         <p class="sidebar-step-title">Step 1</p>
         <p class="sidebar-step-description">Your info</p>
       </div>
     </div>
     <div class="sidebar-steps">
-      <button class="step-nb" :class="{ activeStep: secondStep }">2</button>
+      <button class="step-nb" :class="{ activeStep: stepStore.secondStep }">
+        2
+      </button>
       <div class="sidebar-steps-text">
         <p class="sidebar-step-title">Step 2</p>
         <p class="sidebar-step-description">Select plan</p>
       </div>
     </div>
     <div class="sidebar-steps">
-      <button class="step-nb" :class="{ activeStep: thirdStep }">3</button>
+      <button class="step-nb" :class="{ activeStep: stepStore.thirdStep }">
+        3
+      </button>
       <div class="sidebar-steps-text">
         <p class="sidebar-step-title">Step 3</p>
         <p class="sidebar-step-description">Add-ons</p>
       </div>
     </div>
     <div class="sidebar-steps">
-      <button class="step-nb" :class="{ activeStep: lastStep }">4</button>
+      <button class="step-nb" :class="{ activeStep: stepStore.lastStep }">
+        4
+      </button>
       <div class="sidebar-steps-text">
         <p class="sidebar-step-title">Step 4</p>
         <p class="sidebar-step-description">Summary</p>
@@ -34,31 +42,20 @@
   </div>
 </template>
 <script>
+import { useStepStore } from "@/stores/StepStore";
+
 export default {
-  data() {
+  setup() {
+    const stepStore = useStepStore();
     return {
-      stepNb: 1,
+      stepStore,
     };
   },
-  methods: {
-    handleNextStep() {
-      this.stepNb++;
-    },
+  data() {
+    return {};
   },
-  computed: {
-    firstStep() {
-      return this.stepNb === 1;
-    },
-    secondStep() {
-      return this.stepNb === 2;
-    },
-    thirdStep() {
-      return this.stepNb === 3;
-    },
-    lastStep() {
-      return this.stepNb === 4;
-    },
-  },
+  computed: {},
+  mounted() {},
 };
 </script>
 <style>

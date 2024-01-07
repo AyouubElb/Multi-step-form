@@ -1,4 +1,4 @@
-# multi-step-form-main
+# multi-step-form
 
 ## Project setup
 ```

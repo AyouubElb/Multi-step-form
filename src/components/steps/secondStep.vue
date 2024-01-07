@@ -92,13 +92,23 @@
   </div>
   <div class="navigation-buttons">
     <p class="previous-step">Go Back</p>
-    <button>Next Step</button>
+    <button class="navigation-button" @click="stepStore.nextStep()">
+      Next Step
+    </button>
   </div>
 
   <!-- Step 2 end -->
 </template>
 <script>
+import { useStepStore } from "@/stores/StepStore";
+
 export default {
+  setup() {
+    const stepStore = useStepStore();
+    return {
+      stepStore,
+    };
+  },
   data() {
     return {
       subscriptionOption: "arcade",

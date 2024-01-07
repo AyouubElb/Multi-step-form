@@ -12,13 +12,26 @@
   <input type="text" placeholder="e.g. stephenking@lorem.com" />
   <label for="">Phone Number</label>
   <input type="text" placeholder="e.g. +1 234 567 890" />
-  <button>Next Step</button>
+  <div class="navigation-buttons">
+    <button class="navigation-button" @click="stepStore.nextStep()">
+      Next Step
+    </button>
+  </div>
 
   <!-- Step 1 end -->
   <!-- </div> -->
 </template>
 <script>
-export default {};
+import { useStepStore } from "@/stores/StepStore";
+
+export default {
+  setup() {
+    const stepStore = useStepStore();
+    return {
+      stepStore,
+    };
+  },
+};
 </script>
 <style>
 .step-container label {
