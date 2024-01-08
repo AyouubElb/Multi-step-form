@@ -8,41 +8,44 @@
       class="feature-choices-content"
       :class="{ activeChoice: onlineService }"
     >
-      <input type="checkbox" @click="addRemoveFeature('onlineService')" />
+      <input type="checkbox" @click="addRemoveFeature('Online service')" />
       <div class="feature-choice-text">
         <p>Online service</p>
         <p>Access to multiplayer games</p>
       </div>
-      <p class="feature-choice-price">+$1/mo</p>
+      <p class="feature-choice-price">+${{ featuresPrices.onlineService }}</p>
     </div>
     <div
       class="feature-choices-content"
       :class="{ activeChoice: largerStorage }"
     >
-      <input type="checkbox" @click="addRemoveFeature('largerStorage')" />
+      <input type="checkbox" @click="addRemoveFeature('Larger storage')" />
       <div class="feature-choice-text">
         <p>Larger storage</p>
         <p>Extra 1TB of cloud save</p>
       </div>
-      <p class="feature-choice-price">+$2/mo</p>
+      <p class="feature-choice-price">+${{ featuresPrices.largerStorage }}</p>
     </div>
     <div
       class="feature-choices-content"
       :class="{ activeChoice: customizableProfile }"
     >
-      <input type="checkbox" @click="addRemoveFeature('customizableProfile')" />
+      <input
+        type="checkbox"
+        @click="addRemoveFeature('Customizable profile')"
+      />
       <div class="feature-choice-text">
         <p>Customizable Profile</p>
         <p>Custom theme on your profile</p>
       </div>
-      <p class="feature-choice-price">+$2/mo</p>
+      <p class="feature-choice-price">
+        +${{ featuresPrices.customizableProfile }}
+      </p>
     </div>
   </div>
   <div class="navigation-buttons">
-    <p class="previous-step">Go Back</p>
-    <button class="navigation-button" @click="stepStore.nextStep()">
-      Next Step
-    </button>
+    <p class="previous-step" @click="stepStore.previousStep">Go Back</p>
+    <button class="navigation-button" @click="handleNextStep">Next Step</button>
   </div>
 
   <!-- Step 3 end -->
@@ -59,27 +62,44 @@ export default {
   },
   data() {
     return {
+      featuresList: [
+        { name: "Online service", price: 1 },
+        { name: "Larger storage", price: 2 },
+        { name: "Customizable profile", price: 2 },
+      ],
       featureChoices: [],
     };
   },
   computed: {
     onlineService() {
-      return this.featureChoices.includes("onlineService");
+      return this.featureChoices.includes("Online service");
     },
     largerStorage() {
-      return this.featureChoices.includes("largerStorage");
+      return this.featureChoices.includes("Larger storage");
     },
     customizableProfile() {
-      return this.featureChoices.includes("customizableProfile");
+      return this.featureChoices.includes("Customizable profile");
+    },
+    featuresPrices() {
+      if (this.stepStore.userForm.paymentFrequency === "monthly") {
+        return {
+          onlineService: "1/mo",
+          largerStorage: "2/mo",
+          customizableProfile: "2/mo",
+        };
+      } else {
+        return {
+          onlineService: "10/yr",
+          largerStorage: "20/yr",
+          customizableProfile: "20/yr",
+        };
+      }
     },
   },
   methods: {
     addRemoveFeature(value) {
       if (this.featureChoices.length === 0) {
-        console.log("value", value);
-        console.log("featureChoices", this.featureChoices.length);
         this.featureChoices.push(value);
-        this.featureChoices.forEach((item) => console.log("item", item));
       } else {
         if (this.featureChoices.includes(value)) {
           this.featureChoices = this.featureChoices.filter(
@@ -89,6 +109,29 @@ export default {
           this.featureChoices.push(value);
         }
       }
+    },
+    handleNextStep() {
+      const userForm = this.stepStore.userForm;
+      // this.stepStore.userForm.features = this.featureChoices;
+      if (userForm.paymentFrequency === "monthly") {
+        this.featureChoices.forEach((feature) => {
+          this.featuresList.forEach((item) => {
+            if (feature === item.name) {
+              this.stepStore.userForm.features.push(item);
+            }
+          });
+        });
+      } else {
+        this.featureChoices.forEach((feature) => {
+          this.featuresList.forEach((item) => {
+            if (feature === item.name) {
+              item.price = item.price * 10;
+              this.stepStore.userForm.features.push(item);
+            }
+          });
+        });
+      }
+      this.stepStore.nextStep();
     },
   },
 };
@@ -135,5 +178,17 @@ export default {
   margin-left: auto;
   margin-bottom: auto;
   margin-top: auto;
+}
+
+@media only screen and (max-width: 600px) {
+  .feature-choice-text p:nth-child(2) {
+    font-size: 14px;
+  }
+  .feature-choice-price {
+    font-size: 14px !important;
+  }
+  .feature-choices-content input[type="checkbox"] {
+    margin-right: 1rem;
+  }
 }
 </style>

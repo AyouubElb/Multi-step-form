@@ -26,8 +26,13 @@
           />
         </g>
       </svg>
-      <p class="subscription-option-title">Arcade</p>
-      <p class="subscription-option-price">$9/mo</p>
+      <div class="subscription-option-text">
+        <p class="subscription-option-title">Arcade</p>
+        <p class="subscription-option-price">
+          ${{ subscriptionPrices.arcade }}
+        </p>
+        <div class="promotion" v-if="!monthlyPlan">2 months free</div>
+      </div>
     </div>
     <div
       class="subscription-option-content"
@@ -49,8 +54,13 @@
           />
         </g>
       </svg>
-      <p class="subscription-option-title">Advanced</p>
-      <p class="subscription-option-price">$12/mo</p>
+      <div class="subscription-option-text">
+        <p class="subscription-option-title">Advanced</p>
+        <p class="subscription-option-price">
+          ${{ subscriptionPrices.advanced }}
+        </p>
+        <div class="promotion" v-if="!monthlyPlan">2 months free</div>
+      </div>
     </div>
     <div
       class="subscription-option-content"
@@ -72,8 +82,11 @@
           />
         </g>
       </svg>
-      <p class="subscription-option-title">Pro</p>
-      <p class="subscription-option-price">$15/mo</p>
+      <div class="subscription-option-text">
+        <p class="subscription-option-title">Pro</p>
+        <p class="subscription-option-price">{{ subscriptionPrices.pro }}</p>
+        <div class="promotion" v-if="!monthlyPlan">2 months free</div>
+      </div>
     </div>
   </div>
   <div class="billing-cycle-toggle">
@@ -91,10 +104,8 @@
     <label :class="{ active: !monthlyPlan }">Yearly</label>
   </div>
   <div class="navigation-buttons">
-    <p class="previous-step">Go Back</p>
-    <button class="navigation-button" @click="stepStore.nextStep()">
-      Next Step
-    </button>
+    <p class="previous-step" @click="stepStore.previousStep">Go Back</p>
+    <button class="navigation-button" @click="handleNextStep">Next Step</button>
   </div>
 
   <!-- Step 2 end -->
@@ -111,6 +122,11 @@ export default {
   },
   data() {
     return {
+      subscList: [
+        { name: "arcade", price: 9 },
+        { name: "advanced", price: 12 },
+        { name: "pro", price: 15 },
+      ],
       subscriptionOption: "arcade",
       monthlyPlan: true,
     };
@@ -124,6 +140,33 @@ export default {
     },
     prOption() {
       return this.subscriptionOption === "pro";
+    },
+    subscriptionPrices() {
+      if (this.monthlyPlan) {
+        return { arcade: "9/mo", advanced: "12/mo", pro: "15/mo" };
+      } else {
+        return { arcade: "90/yr", advanced: "120/yr", pro: "150/yr" };
+      }
+    },
+  },
+  methods: {
+    handleNextStep() {
+      let price = 0;
+      this.stepStore.userForm.plan = this.subscriptionOption;
+      this.subscList.forEach((item) => {
+        if (item.name === this.subscriptionOption) {
+          price += item.price;
+        }
+      });
+      if (this.monthlyPlan) {
+        this.stepStore.userForm.paymentFrequency = "monthly";
+      } else {
+        this.stepStore.userForm.paymentFrequency = "yearly";
+        price = price * 10;
+      }
+
+      this.stepStore.userForm.subscPrice = price;
+      this.stepStore.nextStep();
     },
   },
 };
@@ -152,6 +195,10 @@ export default {
   background-color: #f8f9fe;
 }
 
+.subscription-option text {
+  display: block;
+}
+
 .subscription-option-content svg {
   margin-bottom: 2rem;
 }
@@ -159,10 +206,17 @@ export default {
 .subscription-option-title {
   color: #03295a;
   font-weight: bold;
+  margin-bottom: 4px;
 }
 
 .subscription-option-price {
   color: #a9a9b1;
+}
+
+.promotion {
+  color: #03295a;
+  font-size: 12px;
+  margin-top: 4px;
 }
 
 .billing-cycle-toggle {
@@ -188,5 +242,21 @@ export default {
   font-size: 1.5rem;
   color: #03295a;
   cursor: pointer;
+}
+
+@media only screen and (max-width: 600px) {
+  .subscription-option {
+    display: block;
+  }
+  .subscription-option-content {
+    display: flex;
+    gap: 1rem;
+  }
+  .subscription-option-content svg {
+    margin-bottom: 0;
+  }
+  .billing-cycle-toggle label {
+    font-size: 16px !important;
+  }
 }
 </style>

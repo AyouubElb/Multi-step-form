@@ -1,40 +1,45 @@
 <template>
   <div class="sidebar-container">
     <!-- Sidebar start -->
-    <div class="sidebar-steps">
-      <button class="step-nb" :class="{ activeStep: stepStore.firstStep }">
-        1
-      </button>
-      <div class="sidebar-steps-text">
-        <p class="sidebar-step-title">Step 1</p>
-        <p class="sidebar-step-description">Your info</p>
+    <div class="steps-container">
+      <div class="sidebar-steps">
+        <button class="step-nb" :class="{ activeStep: stepStore.firstStep }">
+          1
+        </button>
+        <div class="sidebar-steps-text">
+          <p class="sidebar-step-title">Step 1</p>
+          <p class="sidebar-step-description">Your info</p>
+        </div>
       </div>
-    </div>
-    <div class="sidebar-steps">
-      <button class="step-nb" :class="{ activeStep: stepStore.secondStep }">
-        2
-      </button>
-      <div class="sidebar-steps-text">
-        <p class="sidebar-step-title">Step 2</p>
-        <p class="sidebar-step-description">Select plan</p>
+      <div class="sidebar-steps">
+        <button class="step-nb" :class="{ activeStep: stepStore.secondStep }">
+          2
+        </button>
+        <div class="sidebar-steps-text">
+          <p class="sidebar-step-title">Step 2</p>
+          <p class="sidebar-step-description">Select plan</p>
+        </div>
       </div>
-    </div>
-    <div class="sidebar-steps">
-      <button class="step-nb" :class="{ activeStep: stepStore.thirdStep }">
-        3
-      </button>
-      <div class="sidebar-steps-text">
-        <p class="sidebar-step-title">Step 3</p>
-        <p class="sidebar-step-description">Add-ons</p>
+      <div class="sidebar-steps">
+        <button class="step-nb" :class="{ activeStep: stepStore.thirdStep }">
+          3
+        </button>
+        <div class="sidebar-steps-text">
+          <p class="sidebar-step-title">Step 3</p>
+          <p class="sidebar-step-description">Add-ons</p>
+        </div>
       </div>
-    </div>
-    <div class="sidebar-steps">
-      <button class="step-nb" :class="{ activeStep: stepStore.lastStep }">
-        4
-      </button>
-      <div class="sidebar-steps-text">
-        <p class="sidebar-step-title">Step 4</p>
-        <p class="sidebar-step-description">Summary</p>
+      <div class="sidebar-steps">
+        <button
+          class="step-nb"
+          :class="{ activeStep: stepStore.lastStep || stepStore.finishStep }"
+        >
+          4
+        </button>
+        <div class="sidebar-steps-text">
+          <p class="sidebar-step-title">Step 4</p>
+          <p class="sidebar-step-description">Summary</p>
+        </div>
       </div>
     </div>
 
@@ -98,7 +103,7 @@ export default {
 }
 
 .sidebar-step-title {
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 300;
   color: #bee1fd;
   text-transform: uppercase;
@@ -107,6 +112,25 @@ export default {
 .sidebar-step-description {
   font-size: 14px;
   color: white;
+  text-transform: uppercase;
   white-space: nowrap;
+}
+
+@media only screen and (max-width: 600px) {
+  .sidebar-container {
+    background-image: url("../assets/images/bg-sidebar-mobile.svg");
+    border-radius: 0;
+    padding-top: 2rem;
+    padding-bottom: 5rem;
+    padding-inline: 0;
+  }
+  .steps-container {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+  }
+  .sidebar-steps-text {
+    display: none;
+  }
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <!-- <div class="step-one-container"> -->
-  <!-- Step 1 start -->
+  <!-- Step 4 start -->
 
   <h1>Finishing up</h1>
   <p class="text-description">
@@ -9,33 +9,71 @@
   <div class="summary-container">
     <div class="subscription-plan">
       <div class="subscription-plan-title">
-        <p>Arcad(Yearly)</p>
-        <p class="modify-subscription-plan">Change</p>
+        <p>{{ stepStore.userForm.plan }}({{ Pf }})</p>
+        <p class="modify-subscription-plan" @click="stepStore.returnSecondStep">
+          Change
+        </p>
       </div>
-      <p class="subscription-plan-price">$90/yr</p>
+      <p class="subscription-plan-price">
+        ${{ stepStore.userForm.subscPrice }}/
+        <span v-if="Pf === 'monthly'">mo</span>
+        <span v-if="Pf === 'yearly'">yr</span>
+      </p>
     </div>
     <hr />
-    <div class="feature-container">
-      <p class="feature-title">Online service</p>
-      <p class="feature-price">+$10/yr</p>
+    <div class="feature-container" v-for="(feature, index) in featuresList">
+      <p class="feature-title">{{ feature.name }}</p>
+      <p class="feature-price">
+        +${{ feature.price }}/
+        <span v-if="Pf === 'monthly'">mo</span>
+        <span v-if="Pf === 'yearly'">yr</span>
+      </p>
     </div>
   </div>
   <div class="total-container">
-    <p class="total-title">Total(per year)</p>
-    <div class="total-price">$120/yr</div>
+    <p class="total-title">
+      Total(per
+      <span v-if="Pf === 'monthly'">month</span>
+      <span v-if="Pf === 'yearly'">year</span>
+      )
+    </p>
+    <div class="total-price">
+      ${{ stepStore.totalPayment }}/
+      <span v-if="Pf === 'monthly'">mo</span>
+      <span v-if="Pf === 'yearly'">yr</span>
+    </div>
   </div>
   <div class="navigation-buttons">
-    <p class="previous-step">Go Back</p>
-    <button class="confirm-button">Confirm</button>
+    <p class="previous-step gray-color">Go Back</p>
+    <button class="navigation-button confirm-button" @click="stepStore.confirm">
+      Confirm
+    </button>
   </div>
 
-  <!-- Step 1 end -->
+  <!-- Step 4 end -->
   <!-- </div> -->
 </template>
 <script>
-export default {};
+import { useStepStore } from "@/stores/StepStore";
+export default {
+  setup() {
+    const stepStore = useStepStore();
+    return {
+      stepStore,
+    };
+  },
+  data() {
+    return {
+      Pf: this.stepStore.userForm.paymentFrequency,
+      featuresList: this.stepStore.userForm.features,
+    };
+  },
+};
 </script>
 <style>
+hr {
+  border: 1px solid #e8e8e8;
+}
 .summary-container {
   background-color: #f8f9fe;
   border-radius: 6px;
@@ -46,6 +84,10 @@ export default {};
 .subscription-plan {
   display: flex;
   margin-bottom: 1rem;
+}
+
+.subscription-plan-title {
+  text-transform: capitalize;
 }
 
 .subscription-plan-title p:nth-child(1) {
@@ -98,14 +140,24 @@ export default {};
 }
 
 .confirm-button {
-  background-color: #493efe;
-  color: white;
-  font-size: 14px;
-  width: fit-content;
-  padding: 0.5rem 1rem;
-  border: none;
-  border-radius: 5px;
-  margin-left: auto;
-  cursor: pointer;
+  background-color: #493efe !important;
+}
+
+.confirm-button:hover {
+  background-color: #948bff;
+}
+
+.gray-color {
+  color: #a9a9b1;
+}
+
+@media only screen and (max-width: 600px) {
+  /* .confirm-button {
+    display: fixed;
+    bottom: 1rem;
+    right: 1rem;
+    padding: 0.75rem 1rem;
+    border-radius: 3px;
+  } */
 }
 </style>

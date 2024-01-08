@@ -59,4 +59,16 @@ ol {
   display: grid;
   grid-template-columns: min-content 1fr;
 }
+
+@media only screen and (max-width: 600px) {
+  .home {
+    align-items: normal;
+  }
+  .card {
+    width: 100%;
+    display: block;
+    background-color: transparent;
+    padding: 0;
+  }
+}
 </style>
