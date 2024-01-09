@@ -47,19 +47,20 @@ export default {
 
 .step-container h1 {
   color: #03295a;
-  font-size: 1.75rem;
-  font-weight: bold;
+  line-height: 1.5;
+  font-size: 2rem;
+  font-weight: 700;
   margin-bottom: 12px;
 }
 
 .step-container p,
 label {
-  font-size: 14px;
+  font-size: 1rem;
 }
 
 .text-description {
   color: #b8b9be;
-  margin-bottom: 1.75rem;
+  margin-bottom: 2rem;
 }
 
 .step-container .navigation-buttons {
@@ -70,14 +71,16 @@ label {
 .step-container .previous-step {
   font-weight: bold;
   cursor: pointer;
+  margin-top: auto;
+  margin-bottom: auto;
 }
 
 .navigation-button {
   background-color: #03295a;
   color: white;
-  font-size: 14px;
+  font-size: 1rem;
   width: fit-content;
-  padding: 0.5rem 1rem;
+  padding: 0.75rem 1rem;
   border: none;
   border-radius: 5px;
   margin-left: auto;

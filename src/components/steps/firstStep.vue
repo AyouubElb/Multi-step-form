@@ -40,14 +40,14 @@ export default {
 }
 
 .step-container input {
-  padding: 0.5rem;
-  margin-bottom: 1rem;
+  padding: 0.75rem;
+  margin-bottom: 1.5rem;
   border: 1px solid #babbc0;
   border-radius: 6px;
 }
 
 .step-container input::placeholder {
   color: #a9a9b1;
-  font-size: 14px;
+  font-size: 1rem;
 }
 </style>

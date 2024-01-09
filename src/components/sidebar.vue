@@ -70,7 +70,7 @@ export default {
   background-size: cover;
   border-radius: 1rem;
   padding-top: 2rem;
-  padding-bottom: 12rem;
+  padding-bottom: 16rem;
   padding-left: 2rem;
   padding-right: 5rem;
 }
