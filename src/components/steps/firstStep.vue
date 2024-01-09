@@ -46,11 +46,8 @@ export default {
   border-radius: 6px;
 }
 
-/* .step-container input:nth-of-type(3) {
-  margin-bottom: 5rem;
-} */
-
 .step-container input::placeholder {
   color: #a9a9b1;
+  font-size: 14px;
 }
 </style>

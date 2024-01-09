@@ -251,9 +251,13 @@ export default {
   .subscription-option-content {
     display: flex;
     gap: 1rem;
+    margin-bottom: 0.5rem;
   }
   .subscription-option-content svg {
     margin-bottom: 0;
+  }
+  .subscription-option-price {
+    font-size: 14px !important;
   }
   .billing-cycle-toggle label {
     font-size: 16px !important;

@@ -58,7 +58,7 @@ label {
 }
 
 .text-description {
-  color: #a9a9b1;
+  color: #b8b9be;
   margin-bottom: 1.75rem;
 }
 

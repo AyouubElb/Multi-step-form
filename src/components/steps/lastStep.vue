@@ -144,20 +144,13 @@ hr {
 }
 
 .confirm-button:hover {
-  background-color: #948bff;
+  background-color: #948bff !important;
 }
 
 .gray-color {
   color: #a9a9b1;
 }
 
-@media only screen and (max-width: 600px) {
-  /* .confirm-button {
-    display: fixed;
-    bottom: 1rem;
-    right: 1rem;
-    padding: 0.75rem 1rem;
-    border-radius: 3px;
-  } */
-}
+/* @media only screen and (max-width: 600px) {
+} */
 </style>
